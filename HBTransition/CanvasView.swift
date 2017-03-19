@@ -12,7 +12,7 @@ class CanvasView: UIView {
   //  画面表示用オフスクリーンへの描画。
   override func draw(_ rect: CGRect) {
     self.canvas?.draw(at: CGPoint.zero)  //  担当画面左上から等倍で描画する。
-    self.beatDraw()
+//    self.beatDraw()
   }
   func beatDraw() {
 //  オフスクリーン描画用CGContext作成。
@@ -25,10 +25,14 @@ class CanvasView: UIView {
 // test code erasable
     line.lineWidth = 5.0
     line.move(to:CGPoint(x:10, y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to:CGPoint(x: Int(arc4random_uniform(100) + 100), y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to: CGPoint(x:100, y: 200))
+    line.addLine(to:CGPoint(x: 30, y: Int(arc4random_uniform(100) + 100)))
+    line.addLine(to:CGPoint(x: 50, y: Int(arc4random_uniform(100) + 100)))
+    line.addLine(to:CGPoint(x: 70, y: Int(arc4random_uniform(100) + 100)))
+    line.addLine(to:CGPoint(x: 90, y: Int(arc4random_uniform(100) + 100)))
+    line.addLine(to:CGPoint(x: 110, y: Int(arc4random_uniform(100) + 100)))
     self.penColor.setStroke()
     line.stroke()
+    line.removeAllPoints()
     //  線を引く。
 //    let context = UIGraphicsGetCurrentContext()         //  設定されているCGContextを取り出す。
 //    context?.setLineWidth(self.penWidth)       //  線の太さを指定する。
@@ -37,7 +41,8 @@ class CanvasView: UIView {
 //    context?.strokePath()
     //  canvasの交換。
     self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
-//    UIGraphicsEndImageContext()
+    UIGraphicsEndImageContext()
+    self.setNeedsDisplay()
   }
   // 線の到達点を受け取り、canvasを更新する。
   func canvasImage(_ newPt:CGPoint) {

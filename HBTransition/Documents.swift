@@ -16,7 +16,7 @@ class Documents : NSObject {
     //  self.imageDirURL下に存在する画像ファイルをリストアップしself.imageURLsを準備する。
     override init() {
         super.init()
-      let result = try? FileManager.default.createDirectory(at: self.imageDirURL,
+      _ = try? FileManager.default.createDirectory(at: self.imageDirURL,
                                              withIntermediateDirectories: true, attributes: nil)
 //      var error:NSError?
       let list = try? FileManager.default.contentsOfDirectory(at: self.imageDirURL,

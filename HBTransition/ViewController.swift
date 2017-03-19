@@ -77,7 +77,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
         if (self.documents == nil) {
             self.documents = Documents()
             if (self.documents.count == 0) {
-                self.documents.addImage()
+              _ = self.documents.addImage()
             }
             self.curtImageIndex = 0
             if (self.canvasView != nil) {
@@ -155,6 +155,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
     }
 
     func startHB() {
+      canvasView.beatDraw()
   }
     func stopHB() {
   }
@@ -225,7 +226,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
         self.documents.removeImageAtIndex(self.curtImageIndex)
         if (self.documents.count == 0) {
             //  落書きが0枚になったので、新しく追加し画面をクリア。
-            self.documents.addImage()
+            _ = self.documents.addImage()
             self.curtImageIndex = 0
             self.canvasView.image = nil
         } else {
@@ -245,7 +246,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
         //  現在表示中の落書きをファイルに保存する。
         self.documents.saveImage(image, atIndex:self.curtImageIndex)
         //  新しく落書きを追加。
-        self.documents.addImage()
+        _ = self.documents.addImage()
         //  インデックスを末尾に設定（追加した落書きを指すようにする）。
         self.curtImageIndex = self.documents.count - 1
         //  取り出しておいた画像を、新しいファイルに保存。

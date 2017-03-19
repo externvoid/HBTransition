@@ -86,7 +86,7 @@ class Pallet: UIControl {
     //  指追跡継続。
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let view = self.hitLayer(touch)
-        self.selectLayer(view)
+        _ = self.selectLayer(view)
         return super.continueTracking(touch, with: event)
     }
     
