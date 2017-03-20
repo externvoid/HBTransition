@@ -18,6 +18,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
 
       //  キャンバスを作成しself.viewの子供にする。
       self.canvasView = CanvasView(frame: self.view.bounds)
+      self.canvasView.backgroundColor = UIColor.white
       self.view.addSubview(self.canvasView)
       if let _ = self.documents {
 //        if (self.documents != nil) {
@@ -155,9 +156,11 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
     }
 
     func startHB() {
-      canvasView.beatDraw()
+//      canvasView.line.removeAllPoints()
+      canvasView.startHB()
   }
     func stopHB() {
+      canvasView.stopHB()
   }
     //  新しい落書きページを用意する。
     func addCanvas() {
