@@ -38,6 +38,16 @@
                ReferencedContainer = "container:HBTransition.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "87D46C571E7E0C34005B874E"
+               BuildableName = "HBTransitionUITests.xctest"
+               BlueprintName = "HBTransitionUITests"
+               ReferencedContainer = "container:HBTransition.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

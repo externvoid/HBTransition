@@ -1,11 +1,5 @@
-//
 //  ViewController.swift
 //  HBTransition
-//
-//  Created by kunii on 2014/11/24.
-//  Copyright (c) 2014年 國居貴浩. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailViewControllerDelegate {

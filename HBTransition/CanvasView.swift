@@ -21,7 +21,7 @@ struct Step {
 
 class CanvasView: UIView {
   var penColor:UIColor = UIColor.red //  ペンの色を指定する。
-  var penWidth:CGFloat = 3.0 //  ペンの太さを指定する。
+  var penWidth:CGFloat = 5.0 //  ペンの太さを指定する。
   fileprivate var canvas:UIImage? // MARK:- オフスクリーン保持用。✳️
   let line = UIBezierPath()
   var ar: [Int] = []
@@ -30,12 +30,13 @@ class CanvasView: UIView {
   var cnt: Int = 0
   var idx_s: Int = 0 //step index
   let step = [Step.step0, Step.step1, Step.step2, Step.step3, Step.step4]
-  var tm: Timer?
- 
-
+  var tm: Timer!
+  var ctx: CGContext!
   //  画面表示用オフスクリーンへの描画。
   override func draw(_ rect: CGRect) {
-    self.canvas?.draw(at: CGPoint.zero)  //  担当画面左上から等倍で描画する。
+    ctx = UIGraphicsGetCurrentContext()
+//    self.canvas?.draw(at: CGPoint.zero)  //  担当画面左上から等倍で描画する。
+//    line.stroke()
 //    self.beatDraw()
   }
   
@@ -43,7 +44,7 @@ class CanvasView: UIView {
     print("OK")
     tm = Timer(timeInterval: 0.2, target: self,
                selector: #selector(CanvasView.update(tm:)), userInfo: nil, repeats: true)
-    RunLoop.current.add(tm!, forMode: .defaultRunLoopMode)
+    RunLoop.current.add(tm, forMode: .defaultRunLoopMode)
     line.move(to: CGPoint(x: 0, y: 165))
     ar.removeAll()
   }
@@ -57,10 +58,19 @@ class CanvasView: UIView {
   // MARK:- 描画
   // 擬似HBでグラフを描画
   func update(tm: Timer) {
-    UIGraphicsBeginImageContextWithOptions(
-        self.bounds.size,   //  CanvasView全体の矩形サイズを指定。
-        true,               //  不透明に設定。
-        1)                  //  Retina画面へ最適化はしない。
+//    UIGraphicsBeginImageContextWithOptions(
+//        self.bounds.size,   //  CanvasView全体の矩形サイズを指定。
+//        true,               //  不透明に設定。
+//        1)                  //  Retina画面へ最適化はしない。
+    UIGraphicsPushContext(ctx)
+// test code
+    ctx.setLineWidth(self.penWidth)       //  線の太さを指定する。
+//    ctx.setStrokeColor(color: CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0))
+//    ctx.setStrokeColor(color: CGColor.black)
+    ctx.move(to: CGPoint(x: 0, y: 0))
+    ctx.addLine(to: CGPoint(x: 100, y: 100))
+    ctx.strokePath()
+
     self.canvas?.draw(at: CGPoint.zero) //  古いオフスクリーンを今のオフスクリーンに再現。
     self.penColor.setStroke() //  線をpenColorの色にする。
     
@@ -86,8 +96,9 @@ class CanvasView: UIView {
     line.stroke()
 //    line.removeAllPoints()
     makeCaption()
-    self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
+//    self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
     self.setNeedsDisplay()
+    UIGraphicsPopContext()
     if cnt > 960 {
       //      self.transform = CGAffineTransform(scaleX: 0.5, y: 1.0)
       tm.invalidate()
@@ -152,28 +163,24 @@ class CanvasView: UIView {
 
   //  指の現在位置を記憶。
   var curtPt = CGPoint.zero
-  //  以下の4つのタッチイベント対応メソッドでは、主側UIViewにタッチイベントを伝えないようsuper側は呼び出さないようにした。
-  //  主側UIViewにタッチイベントを伝えたい場合はsuper側を呼び出す。
+  //  以下の4つのタッチイベント対応メソッドでは、主側UIViewにタッチイベントを伝えないよう
+  //  super側は呼び出さないようにした。主側UIViewにタッチイベントを伝えたい場合はsuper側を呼び出す。
   //  指が触れた。
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
       if let touch = touches.first { curtPt = touch.location(in: self) }
   }
-  
   //  指が触れたまま移動した。
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
       strokeLine(touches as NSSet)
   }
-  
   //  指が放れた。
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
       strokeLine(touches as NSSet)
   }
-  
   //  タッチイベント追跡がキャンセルされた。
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
   } //  なにもしない。
-  
-  //  curtPtで示される現在の指位置から、touchesに設定されている指の位置まで、オフスクリーンに線を描く。そして画面に反映させる。
+  //  curtPtで示される現在の指位置から、touchesに設定される指の位置まで、オフスクリーンに線を描く。そして画面に反映。
   func strokeLine(_ touches: NSSet) {
       if let touch = touches.anyObject() as? UITouch {
           let newPt = touch.location(in: self)
@@ -182,7 +189,6 @@ class CanvasView: UIView {
           self.curtPt = newPt         //  現在の位置を更新。
       }
   }
-
   //  画像設定、取り出し用。
   var image:UIImage? { //newValueが来た時の処理
     set {
@@ -213,7 +219,7 @@ class CanvasView: UIView {
     let attrs = [NSFontAttributeName: UIFont(name: "Hiragino Sans", size: 24)!,
 //    let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 24)!,
                  NSParagraphStyleAttributeName: paragraphStyle,
-                 NSForegroundColorAttributeName: UIColor.white]
+                 NSForegroundColorAttributeName: UIColor.blue]
     let fmt: DateFormatter = DateFormatter()
     fmt.dateFormat = "yyyy年MM月dd日 \nHH時mm分ss秒"
     let t = fmt.string(from: Date())
