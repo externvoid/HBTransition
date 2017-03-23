@@ -15,6 +15,7 @@
 		38D95BC61ADB886C00BF4AFA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38D95BC51ADB886C00BF4AFA /* Images.xcassets */; };
 		38D95BC91ADB886C00BF4AFA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38D95BC71ADB886C00BF4AFA /* LaunchScreen.xib */; };
 		38D95BD51ADB886C00BF4AFA /* HBTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D95BD41ADB886C00BF4AFA /* HBTransitionTests.swift */; };
+		607DDDA21E8365A700EF33B6 /* 00Dev.md in Sources */ = {isa = PBXBuildFile; fileRef = 607DDDA11E8365A700EF33B6 /* 00Dev.md */; };
 		60C613471E77AB1700492C8D /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C613461E77AB1700492C8D /* CanvasView.swift */; };
 		60C613491E77AB6400492C8D /* Pallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C613481E77AB6400492C8D /* Pallet.swift */; };
 		60C6134B1E77AB9B00492C8D /* ExtendablePalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C6134A1E77AB9B00492C8D /* ExtendablePalletView.swift */; };
@@ -52,6 +53,8 @@
 		38D95BCE1ADB886C00BF4AFA /* HBTransitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HBTransitionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38D95BD31ADB886C00BF4AFA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38D95BD41ADB886C00BF4AFA /* HBTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBTransitionTests.swift; sourceTree = "<group>"; };
+		603604741E81FD5000B8B5F9 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		607DDDA11E8365A700EF33B6 /* 00Dev.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = 00Dev.md; sourceTree = "<group>"; };
 		60C613461E77AB1700492C8D /* CanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		60C613481E77AB6400492C8D /* Pallet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pallet.swift; sourceTree = "<group>"; };
 		60C6134A1E77AB9B00492C8D /* ExtendablePalletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendablePalletView.swift; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 		38D95BB01ADB886C00BF4AFA = {
 			isa = PBXGroup;
 			children = (
+				607DDDA11E8365A700EF33B6 /* 00Dev.md */,
+				603604741E81FD5000B8B5F9 /* MyPlayground.playground */,
 				38D95BBB1ADB886C00BF4AFA /* HBTransition */,
 				38D95BD11ADB886C00BF4AFA /* HBTransitionTests */,
 				87D46C591E7E0C35005B874E /* HBTransitionUITests */,
@@ -227,6 +232,7 @@
 				TargetAttributes = {
 					38D95BB81ADB886C00BF4AFA = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = XB3BR4BYPE;
 						LastSwiftMigration = 0820;
 					};
 					38D95BCD1ADB886C00BF4AFA = {
@@ -302,6 +308,7 @@
 				60C6134D1E77ABD800492C8D /* ThumbnailView.swift in Sources */,
 				38D95BBF1ADB886C00BF4AFA /* AppDelegate.swift in Sources */,
 				60C6134B1E77AB9B00492C8D /* ExtendablePalletView.swift in Sources */,
+				607DDDA21E8365A700EF33B6 /* 00Dev.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +454,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XB3BR4BYPE;
 				INFOPLIST_FILE = HBTransition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.self.$(PRODUCT_NAME:rfc1034identifier)";
@@ -460,6 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = XB3BR4BYPE;
 				INFOPLIST_FILE = HBTransition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.self.$(PRODUCT_NAME:rfc1034identifier)";
@@ -578,6 +587,7 @@
 				87D46C601E7E0C35005B874E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

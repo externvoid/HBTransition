@@ -35,7 +35,7 @@ class CanvasView: UIView {
   //  画面表示用オフスクリーンへの描画。
   override func draw(_ rect: CGRect) {
     ctx = UIGraphicsGetCurrentContext()
-//    self.canvas?.draw(at: CGPoint.zero)  //  担当画面左上から等倍で描画する。
+    self.canvas?.draw(at: CGPoint.zero)  //  担当画面左上から等倍で描画する。
 //    line.stroke()
 //    self.beatDraw()
   }
@@ -53,29 +53,21 @@ class CanvasView: UIView {
     tm?.invalidate()
     ar.removeAll()
     line.removeAllPoints()
+    self.canvas = getScreenShot()
   }
  
   // MARK:- 描画
   // 擬似HBでグラフを描画
   func update(tm: Timer) {
-//    UIGraphicsBeginImageContextWithOptions(
-//        self.bounds.size,   //  CanvasView全体の矩形サイズを指定。
-//        true,               //  不透明に設定。
-//        1)                  //  Retina画面へ最適化はしない。
-    UIGraphicsPushContext(ctx)
-// test code
-    ctx.setLineWidth(self.penWidth)       //  線の太さを指定する。
-//    ctx.setStrokeColor(color: CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0))
-//    ctx.setStrokeColor(color: CGColor.black)
-    ctx.move(to: CGPoint(x: 0, y: 0))
-    ctx.addLine(to: CGPoint(x: 100, y: 100))
-    ctx.strokePath()
-
+    UIGraphicsBeginImageContextWithOptions(
+        self.bounds.size,   //  CanvasView全体の矩形サイズを指定。
+        true,               //  不透明に設定。
+        1)                  //  Retina画面へ最適化はしない。
     self.canvas?.draw(at: CGPoint.zero) //  古いオフスクリーンを今のオフスクリーンに再現。
     self.penColor.setStroke() //  線をpenColorの色にする。
     
     idx_s = cnt2step(cnt)
-    let iy: Int = Int(arc4random_uniform(30)) + 150
+    let iy: Int = rnd(30) + 150
     ar.append(iy)
     
     if [60, 120, 240, 480, 960].contains(where:{ $0 == cnt}) {
@@ -96,14 +88,13 @@ class CanvasView: UIView {
     line.stroke()
 //    line.removeAllPoints()
     makeCaption()
-//    self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
-    self.setNeedsDisplay()
-    UIGraphicsPopContext()
+    self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
     if cnt > 960 {
       //      self.transform = CGAffineTransform(scaleX: 0.5, y: 1.0)
       tm.invalidate()
     } else { print("cnt =", cnt) }
     
+    UIGraphicsEndImageContext()
   }
   
   func cnt2step(_ cnt: Int) -> Int {
@@ -228,5 +219,19 @@ class CanvasView: UIView {
                              options: .usesLineFragmentOrigin,
                              attributes: attrs, context: nil)
     
+  }
+  func getScreenShot() -> UIImage {
+    let rect = self.bounds
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+    let ctx: CGContext = UIGraphicsGetCurrentContext()!
+    self.layer.render(in: ctx)
+    let capturedImage : UIImage! = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return capturedImage
+  }
+  
+  func rnd(_ upper: UInt32) -> Int { // 0..<upperまで半数発生、upper含まず
+    return  Int(arc4random_uniform(upper))
   }
 }
