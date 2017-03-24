@@ -46,15 +46,19 @@ class CanvasView: UIView {
 //               selector: #selector(CanvasView.beatDraw), userInfo: nil, repeats: true)
                selector: #selector(CanvasView.update(tm:)), userInfo: nil, repeats: true)
     RunLoop.current.add(tm, forMode: .defaultRunLoopMode)
-    line.move(to: CGPoint(x: 0, y: 165))
+    ix = 0.0
+    cnt = 0
     ar.removeAll()
+    line.removeAllPoints()
+    
+    line.move(to: CGPoint(x: 0, y: 165))
   }
   func stopHB() {
     print("NG")
     tm?.invalidate()
     ar.removeAll()
     line.removeAllPoints()
-    self.canvas = getScreenShot()
+//    self.canvas = getScreenShot()
   }
  
   // MARK:- 描画
@@ -64,7 +68,7 @@ class CanvasView: UIView {
         self.bounds.size,   //  CanvasView全体の矩形サイズを指定。
         true,               //  不透明に設定。
         1)                  //  Retina画面へ最適化はしない。
-    self.canvas?.draw(at: CGPoint.zero) //  古いオフスクリーンを今のオフスクリーンに再現。
+//    self.canvas?.draw(at: CGPoint.zero) //  古いオフスクリーンを今のオフスクリーンに再現。
     self.penColor.setStroke() //  線をpenColorの色にする。
     
     idx_s = cnt2step(cnt)
@@ -77,9 +81,9 @@ class CanvasView: UIView {
       line.move(to: CGPoint(x: 0, y: 165))
       ix = 0.0
       //      var ix: CGFloat = 0.0
-      Array(0..<cnt).forEach {iy in
+      Array(0..<cnt).forEach {e in
         line.addLine(to: CGPoint(x: ix,
-                                            y: CGFloat(ar[iy])))
+                                            y: CGFloat(ar[e])))
         ix += step[idx_s].ix
       }
     }
@@ -87,7 +91,6 @@ class CanvasView: UIView {
     ix += step[idx_s].ix
     cnt += 1
     line.stroke()
-//    line.removeAllPoints()
     makeCaption()
     self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
     if cnt > 960 {
