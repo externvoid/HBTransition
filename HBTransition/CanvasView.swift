@@ -36,8 +36,6 @@ class CanvasView: UIView {
   override func draw(_ rect: CGRect) {
     ctx = UIGraphicsGetCurrentContext()
     self.canvas?.draw(at: CGPoint.zero)  //  担当画面左上から等倍で描画する。
-//    line.stroke()
-//    self.beatDraw()
   }
   
   func startHB() {
@@ -48,6 +46,7 @@ class CanvasView: UIView {
     RunLoop.current.add(tm, forMode: .defaultRunLoopMode)
     ix = 0.0
     cnt = 0
+    line.lineWidth = self.penWidth
     ar.removeAll()
     line.removeAllPoints()
     
@@ -114,30 +113,6 @@ class CanvasView: UIView {
     }
   }
   
-  func beatDraw() {
-//  オフスクリーン描画用CGContext作成。
-    UIGraphicsBeginImageContextWithOptions(
-        self.bounds.size,   //  CanvasView全体の矩形サイズを指定。
-        true,               //  不透明に設定。
-        1)                  //  Retina画面へ最適化はしない。
-    self.canvas?.draw(at: CGPoint.zero) //  古いオフスクリーンを今のオフスクリーンに再現。
-    self.penColor.setStroke() //  線をpenColorの色にする。
-// test code erasable
-    line.lineWidth = 5.0
-    line.move(to:CGPoint(x:10, y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to:CGPoint(x: 30, y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to:CGPoint(x: 50, y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to:CGPoint(x: 70, y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to:CGPoint(x: 90, y: Int(arc4random_uniform(100) + 100)))
-    line.addLine(to:CGPoint(x: 110, y: Int(arc4random_uniform(100) + 100)))
-    self.penColor.setStroke()
-    line.stroke()
-    line.removeAllPoints()
-    makeCaption()
-    self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
-//    self.setNeedsDisplay()
-    UIGraphicsEndImageContext()
-  }
   // 線の到達点を受け取り、canvasを更新する。
   func canvasImage(_ newPt:CGPoint) {
       //  オフスクリーン描画用CGContext作成。
@@ -213,7 +188,7 @@ class CanvasView: UIView {
   func makeCaption() {
     let paragraphStyle = NSMutableParagraphStyle()
     paragraphStyle.alignment = .center
-    let attrs = [NSFontAttributeName: UIFont(name: "Hiragino Sans", size: 24)!,
+    let attrs = [NSFontAttributeName: UIFont(name: "Hiragino Sans", size: 18)!,
 //    let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 24)!,
                  NSParagraphStyleAttributeName: paragraphStyle,
                  NSForegroundColorAttributeName: UIColor.gray]
@@ -221,7 +196,7 @@ class CanvasView: UIView {
     fmt.dateFormat = "yyyy年MM月dd日 \nHH時mm分ss秒"
     let t = fmt.string(from: Date())
     (string + "\n" + t)
-      .draw(with: CGRect(x: 12, y: 12, width: 400, height: 200),
+      .draw(with: CGRect(x: 06, y: 12, width: 400, height: 200),
                              options: .usesLineFragmentOrigin,
                              attributes: attrs, context: nil)
     
