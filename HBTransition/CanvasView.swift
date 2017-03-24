@@ -43,6 +43,7 @@ class CanvasView: UIView {
   func startHB() {
     print("OK")
     tm = Timer(timeInterval: 0.2, target: self,
+//               selector: #selector(CanvasView.beatDraw), userInfo: nil, repeats: true)
                selector: #selector(CanvasView.update(tm:)), userInfo: nil, repeats: true)
     RunLoop.current.add(tm, forMode: .defaultRunLoopMode)
     line.move(to: CGPoint(x: 0, y: 165))
@@ -95,6 +96,7 @@ class CanvasView: UIView {
     } else { print("cnt =", cnt) }
     
     UIGraphicsEndImageContext()
+    self.setNeedsDisplay()
   }
   
   func cnt2step(_ cnt: Int) -> Int {
@@ -130,7 +132,8 @@ class CanvasView: UIView {
     line.removeAllPoints()
     makeCaption()
     self.canvas = UIGraphicsGetImageFromCurrentImageContext() // オフスクリーンを画像として取り出し。
-    self.setNeedsDisplay()
+//    self.setNeedsDisplay()
+    UIGraphicsEndImageContext()
   }
   // 線の到達点を受け取り、canvasを更新する。
   func canvasImage(_ newPt:CGPoint) {
@@ -210,7 +213,7 @@ class CanvasView: UIView {
     let attrs = [NSFontAttributeName: UIFont(name: "Hiragino Sans", size: 24)!,
 //    let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 24)!,
                  NSParagraphStyleAttributeName: paragraphStyle,
-                 NSForegroundColorAttributeName: UIColor.blue]
+                 NSForegroundColorAttributeName: UIColor.gray]
     let fmt: DateFormatter = DateFormatter()
     fmt.dateFormat = "yyyy年MM月dd日 \nHH時mm分ss秒"
     let t = fmt.string(from: Date())
