@@ -127,7 +127,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
         
         //  固定幅
         let fixspace = UIBarButtonItem(barButtonSystemItem:.fixedSpace, target:nil, action:nil)
-        fixspace.width = 30
+        fixspace.width = 20
 
         //  アクションボタンをツールバーに追加。ターゲットに自身をアクションに-saveメソッドを指定する。
         let actionitem = UIBarButtonItem(barButtonSystemItem:.action, target:self, action:#selector(ViewController.showActionMenu(_:)))
@@ -137,7 +137,7 @@ class ViewController: UIViewController, ExtendablePalletViewDelegate, ThumbnailV
       let stopitem = UIBarButtonItem(title: "Stop", style: .plain, target:self, action:#selector(ViewController.stopHB))
         //  New・アクション間固定幅
         let new_ActionSpace = UIBarButtonItem(barButtonSystemItem:.fixedSpace, target:nil, action:nil)
-        new_ActionSpace.width = 50
+        new_ActionSpace.width = 40
         
         //  5つのアイテムをツールバに登録。
         toolBar.items = [saveitem, new_ActionSpace, actionitem, fixspace, startitem, fixspace, stopitem, flexspace, self.rewinditem, fixspace, self.forwarditem]

@@ -1,4 +1,10 @@
 
+# 2017/03/25St
+Subject Grasp
+---
+[1] String#drawの動作確認。任意の場所に描画したい。
+
+
 # 2017/03/24Fr
 Subject Grasp
 ---

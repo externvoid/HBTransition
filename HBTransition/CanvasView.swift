@@ -196,7 +196,7 @@ class CanvasView: UIView {
     fmt.dateFormat = "yyyy年MM月dd日 \nHH時mm分ss秒"
     let t = fmt.string(from: Date())
     (string + "\n" + t)
-      .draw(with: CGRect(x: 06, y: 12, width: 400, height: 200),
+      .draw(with: CGRect(x: 06, y: 12, width: 200, height: 200),
                              options: .usesLineFragmentOrigin,
                              attributes: attrs, context: nil)
     
