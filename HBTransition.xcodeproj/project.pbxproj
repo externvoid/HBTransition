@@ -228,7 +228,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = "國居貴浩";
+				ORGANIZATIONNAME = "田中寛";
 				TargetAttributes = {
 					38D95BB81ADB886C00BF4AFA = {
 						CreatedOnToolsVersion = 6.3;
@@ -457,7 +457,7 @@
 				DEVELOPMENT_TEAM = XB3BR4BYPE;
 				INFOPLIST_FILE = HBTransition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.self.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = ad.private.HBTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -471,7 +471,7 @@
 				DEVELOPMENT_TEAM = XB3BR4BYPE;
 				INFOPLIST_FILE = HBTransition/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "edu.self.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = ad.private.HBTransition;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
